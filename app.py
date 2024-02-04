@@ -1,11 +1,3 @@
-!pip install sklearn
-!pip install pandas
-!pip install joblib
-!pip install statsmodels
-!pip install matplotlib
-!pip install streamlit
-!pip install numpy
-
 import streamlit as st
 import pandas as pd
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
