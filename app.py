@@ -11,35 +11,35 @@ import plotly.express as px
 from xgboost import XGBRegressor
 from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
 
-to_filter_df = pd.read_csv('14_for_dashboard.csv', low_memory=False)
-columns_to_keep = ['main_city', 'price_land_pp', 'Hospital', 'National School', 'Railway Station', 'Bus Stop', 'Main Road']
-filtered_df = to_filter_df[columns_to_keep].copy()
+# to_filter_df = pd.read_csv('14_for_dashboard.csv', low_memory=False)
+# columns_to_keep = ['main_city', 'price_land_pp', 'Hospital', 'National School', 'Railway Station', 'Bus Stop', 'Main Road']
+# filtered_df = to_filter_df[columns_to_keep].copy()
 
-X = filtered_df.drop('price_land_pp', axis=1)
-y = filtered_df['price_land_pp']
+# X = filtered_df.drop('price_land_pp', axis=1)
+# y = filtered_df['price_land_pp']
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=123)
+# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=123)
 
-numerical_features = X.select_dtypes(include=['float64', 'int64']).columns
-categorical_features = ['main_city'] + list(X.select_dtypes(include=['object']).columns)
+# numerical_features = X.select_dtypes(include=['float64', 'int64']).columns
+# categorical_features = ['main_city'] + list(X.select_dtypes(include=['object']).columns)
 
-numeric_transformer = Pipeline(steps=[('scaler', StandardScaler())])
-categorical_transformer = Pipeline(steps=[('onehot', OneHotEncoder(handle_unknown='ignore'))])
+# numeric_transformer = Pipeline(steps=[('scaler', StandardScaler())])
+# categorical_transformer = Pipeline(steps=[('onehot', OneHotEncoder(handle_unknown='ignore'))])
 
-preprocessor = ColumnTransformer(
-    transformers=[
-        ('num', numeric_transformer, numerical_features),
-        ('cat', categorical_transformer, categorical_features)
-    ])
+# preprocessor = ColumnTransformer(
+#     transformers=[
+#         ('num', numeric_transformer, numerical_features),
+#         ('cat', categorical_transformer, categorical_features)
+#     ])
 
-model = RandomForestRegressor(n_estimators=50, max_depth= None)
-pipeline = Pipeline(steps=[('preprocessor', preprocessor),
-                             ('model', model)])
+# model = RandomForestRegressor(n_estimators=50, max_depth= None)
+# pipeline = Pipeline(steps=[('preprocessor', preprocessor),
+#                              ('model', model)])
 
-pipeline.fit(X_train, y_train)
+# pipeline.fit(X_train, y_train)
 
 
-joblib.dump(pipeline, 'trained_model.joblib')
+# joblib.dump(pipeline, 'trained_model.joblib')
 
 @st.cache_resource
 def load_model():
